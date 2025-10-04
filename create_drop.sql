@@ -29,20 +29,20 @@ CREATE TABLE student (
 )
 
 -- Keď vytvoríme tabuľku s veľkým písmenom, uloží sa s malými písmenami lebo je case insensitive (nerozlišuje)
-CREATE TABLE TestTable();
+CREATE TABLE TestTabulky();
 -- Toto je teda ten istý CREATE a vráti error, pretože tabuľka s takým názvom už existuje
-CREATE TABLE TESTTable();
+CREATE TABLE TESTTabulky();
 
 -- To isté platí aj pre názvy stĺpcov v tabuľke 
 -- Ak chceme použiť veľké písmená musíme použiť dvojité úvodzovky 
-DROP TABLE IF EXISTS TESTTABLE;
-CREATE TABLE IF NOT EXISTS "TESTTABLE"(
+DROP TABLE IF EXISTS TestTabulky;
+CREATE TABLE IF NOT EXISTS "TestTabulky"(
 	"COLMUN_NAME" varchar(256) NOT NULL
 );
--- TERAZ VSAK VZDY MUSIME POUZIT DVOJITE UVODZOVKY NA TO ABY SME MOHLI PRACOVAT S TABULKKOU
+-- TERAZ VSAK VZDY MUSIME POUZIT DVOJITE UVODZOVKY NA TO ABY SME MOHLI PRACOVAT S TABULKOU
 -- Preto toto vráti chybu 
-DROP TABLE TESTTABLE;
+DROP TABLE TestTabulky;
 -- A toto prejde
-DROP TABLE "TESTTABLE";
+DROP TABLE "TestTabulky";
 
 -- Nechcem, aby ste používali veľké písmená pre názvy tabuliek a stĺpcov!!!!

@@ -1,6 +1,6 @@
--- pridavanie a mazanie tabulky v postgresql
--- Nazvy klucovych slov SQL budeme pisat velkymi pismenami 
--- Nazvy tabuliek a stlpcov = snake_case  
+-- pridávanie a mazanie tabuľky v postgresql
+-- Názvy kľúčových slov SQL budeme písať veľkými písmenami 
+-- Názvy tabuliek a stĺpcov = snake_case  
 -- SQL NIE je case sensitive
 
 
@@ -9,18 +9,9 @@
 --    column2 datatype(length) column_contraint,
 -- );
 
-
-
-DROP TABLE IF EXISTS students;
-
 CREATE TABLE IF NOT EXISTS students (
 	student_id   serial PRIMARY KEY,
-	username     VARCHAR (128) UNIQUE NOT NULL,
-	password     VARCHAR (128) NOT NULL,
-	is_new       BOOLEAN,
-	year_born    INTEGER NOT NULL,
-	created_on   TIMESTAMP NOT NULL,
-    last_login TIMESTAMP 
+	username     VARCHAR (128) UNIQUE NOT NULL
 );
 
 

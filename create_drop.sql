@@ -20,16 +20,13 @@ CREATE TABLE IF NOT EXISTS students (
 -- CASCADE - zmaže tabuľku a všetky jej závislosti (viac neskôr)
 -- RESTRICT - zmaže tabuľku len ak nemá závislosti ... toto je default, aj bez toho, aby to bolo napísané
 
-DROP TABLE IF EXISTS students
+DROP TABLE IF EXISTS student
 RESTRICT;
 
 CREATE TABLE student (
-	student_id serial PRIMARY KEY,
-	username VARCHAR (128) UNIQUE NOT NULL,
+	student_id 	serial PRIMARY KEY,
+	username 	VARCHAR (128) UNIQUE NOT NULL,
 )
-
-DROP TABLE Student
-
 
 -- Keď vytvoríme tabuľku s veľkým písmenom, uloží sa s malými písmenami lebo je case insensitive (nerozlišuje)
 CREATE TABLE TestTable();

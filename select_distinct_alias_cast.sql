@@ -160,4 +160,82 @@ FROM "Track"
 SELECT DISTINCT "AlbumId", "MediaTypeId"
 FROM "Track"
 
+-- ORDER BY - predvolene zobrazi od najmensieho
+-- podla stlpca Bytes
+SELECT "Name", "Bytes"
+FROM "Track"
+ORDER BY "Bytes"
+
+--  DESC zostupne 10 - 1
+SELECT "Name", "Bytes"
+FROM "Track"
+ORDER BY "Bytes" DESC
+
+-- ASC vzostupne
+-- funguje pre viac stlpcov naraz
+SELECT "Name", "Bytes", "Milliseconds"
+FROM "Track"
+ORDER BY 
+	"Bytes" DESC, 
+	"Milliseconds" DESC
+
+-- filtrovanie podla tichto stlpcov
+-- chcem zostupne albumId a tie ktore budu
+-- mat rovnaku velkost podla bytes
+-- poradie stlpcov v selecte neovplyvnuje poradie v order by
+SELECT "Name", "Bytes", "AlbumId"
+FROM "Track"
+ORDER BY "AlbumId" DESC, "Bytes" DESC
+-- podla bytes sa zoraduje az po zoradeni AlbumId
+-- vnorene zoradovanie
+
+-- ORDER BY na zaklade novovytvoreneho stlpca
+-- pomocou matematickej operacie - toto je celociselne delenie
+SELECT "Name","Milliseconds", ("Milliseconds"/1000)/60 minutes
+FROM "Track"
+
+-- delenie s realnymi cislami - jedno hodnota musi byt decimal
+SELECT "Name", CAST("Milliseconds" AS DECIMAL),("Milliseconds"/1000)/60 as minutes 
+FROM "Track"
+ORDER BY minutes DESC
+
+SELECT "Name", "Milliseconds", ("Milliseconds"/1000)/60::DECIMAL AS seconds 
+FROM "Track"
+ORDER BY seconds DESC
+-- poradie vyhodnocovania
+-- FROM > SELECT > ORDER BY
+
+-- WHERE je podmienka - logicke operacie ako z pythonu
+-- kde bytes je viac ako 5mil
+SELECT "Name", "Bytes", "AlbumId"
+FROM "Track"
+WHERE "Bytes" > 5000000
+ORDER BY "Bytes" DESC
+
+SELECT "Name", "Bytes", "AlbumId"
+FROM "Track"
+WHERE "Bytes" > 5000000 AND "Bytes" <6000000
+ORDER BY "Bytes" DESC
+-- > <
+-- AND OR IN NOT BETWEEN
+-- z AlbumId 1 alebo 2
+SELECT "Name", "Bytes", "AlbumId"
+FROM "Track"
+WHERE "AlbumId" IN (1,2)
+
+SELECT "Name", "Bytes", "AlbumId"
+FROM "Track"
+WHERE "AlbumId" NOT IN (1,2)
+
+-- skladby ktore pozostavaju z 5 az 25 pismen
+-- nemozete pouzit stlpec vytvoreny v selecte
+SELECT "Name", LENGTH("Name") AS name_length
+FROM "Track"
+WHERE  LENGTH("Name") > 5 AND  LENGTH("Name") < 25 
+
+-- skladby s podretazcom - LIKE - ILIKE iba pre postrge
+-- vzor ktory obsahuje dany retazec
+SELECT "Name"
+FROM "Track"
+WHERE "Name" LiKe 'Sa%'
 

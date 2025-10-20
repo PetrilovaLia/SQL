@@ -145,6 +145,7 @@ FROM "Track"
 SELECT "Name", "Composer"
 FROM "Track"
 
+-- Tu sme asi skoncili
 -- chcem ich spojiť - concatenate - reťaziť - operátor
 -- nechcem čudný názov - python sám o sebe je čudný, použijem alias
 SELECT "Name", "Composer", "Name" || ' ' || "Composer" AS spojenie
@@ -173,6 +174,7 @@ ORDER BY "Bytes" DESC
 
 -- ASC vzostupne
 -- funguje pre viac stlpcov naraz
+-- najprv podla bytes potom miliseconds
 SELECT "Name", "Bytes", "Milliseconds"
 FROM "Track"
 ORDER BY 
@@ -191,6 +193,7 @@ ORDER BY "AlbumId" DESC, "Bytes" DESC
 
 -- ORDER BY na zaklade novovytvoreneho stlpca
 -- pomocou matematickej operacie - toto je celociselne delenie
+-- /1000 na sekundy /60 na minuty
 SELECT "Name","Milliseconds", ("Milliseconds"/1000)/60 minutes
 FROM "Track"
 
@@ -199,9 +202,9 @@ SELECT "Name", CAST("Milliseconds" AS DECIMAL),("Milliseconds"/1000)/60 as minut
 FROM "Track"
 ORDER BY minutes DESC
 
-SELECT "Name", "Milliseconds", ("Milliseconds"/1000)/60::DECIMAL AS seconds 
+SELECT "Name", "Milliseconds", ("Milliseconds"/1000)/60::DECIMAL AS minutes 
 FROM "Track"
-ORDER BY seconds DESC
+ORDER BY minutes DESC
 -- poradie vyhodnocovania
 -- FROM > SELECT > ORDER BY
 
@@ -214,11 +217,11 @@ ORDER BY "Bytes" DESC
 
 SELECT "Name", "Bytes", "AlbumId"
 FROM "Track"
-WHERE "Bytes" > 5000000 AND "Bytes" <6000000
+WHERE "Bytes" > 5000000 AND "Bytes" < 6000000
 ORDER BY "Bytes" DESC
 -- > <
 -- AND OR IN NOT BETWEEN
--- z AlbumId 1 alebo 2
+-- skladby z AlbumId 1 alebo 2
 SELECT "Name", "Bytes", "AlbumId"
 FROM "Track"
 WHERE "AlbumId" IN (1,2)

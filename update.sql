@@ -24,12 +24,13 @@ INSERT INTO customer (customer_id, first_name, last_name, address, city, country
 INSERT INTO customer (customer_id, first_name, last_name, address, city, stat, country, postal_code, phone, email, support_rep_id) VALUES (3, N'François', N'Tremblay', N'1498 rue Bélanger', N'Montréal', N'QC', N'Canada', N'H2G 1A7', N'+1 (514) 721-4711', N'ftremblay@gmail.com', 3);
 INSERT INTO customer (customer_id, first_name, last_name, address, city, country, postal_code, phone, email, support_rep_id) VALUES (4, N'Bjørn', N'Hansen', N'Ullevålsveien 14', N'Oslo', N'Norway', N'0171', N'+47 22 44 22 22', N'bjorn.hansen@yahoo.no', 4);
 INSERT INTO customer (customer_id, first_name, last_name, company, address, city,country, postal_code, phone, fax, email, support_rep_id) VALUES (5, N'Frantiešek', N'Wichterlová', N'JetBrains s.r.o.', N'Klanova 9/506', N'Prague', N'Czech Republic', N'14700', N'+420 2 4172 5555', N'+420 2 4172 5555', N'frantisekw@jetbrains.com', 4);
+-- INSERT INTO customers (customers_id, first_name, last_name, company, address, city,country, postal_code, phone, fax, email, support_rep_id) VALUES (5, N'Frantiešek', N'Wichterlová', N'JetBrains s.r.o.', N'Klanova 9/506', N'Prague', N'Czech Republic', N'14700', N'+420 2 4172 5555', N'+420 2 4172 5555', N'frantisekw@jetbrains.com', 4);
 
-
+-- Create.Read.Update.Delete
 SELECT * 
 FROM customer
 
--- chcem premenovat tabulku
+-- chcem premenovat tabulku lebo uz v nej su data uz je v produkcii
 ALTER TABLE customer
 RENAME TO customers
 
@@ -37,8 +38,10 @@ RENAME TO customers
 ALTER TABLE customers
 RENAME COLUMN customer_id TO customers_id
 
--- zmena udajov v tabulke
--- identifukujem pomocou id
+-- zmena udajov v tabulke UPDATE nazov_tabulky
+-- SET co_chcem_zmenit = nove_data
+-- identifukujem pomocou id - akakolvek where podmienka
+
 UPDATE customers
 SET first_name = 'Some',
 	last_name = 'Stranger'
@@ -48,28 +51,37 @@ WHERE customers_id = 2
 SELECT * 
 FROM customers
 
--- viaceri naraz
+-- viacere zaznamy naraz - ale na jednu hodnotu(nepouziva_sa)
 UPDATE customers
 SET first_name = 'Some',
-	last_name = 'Stranger'
-WHERE customers_id <= 3
+	last_name = 'StrangerS'
+WHERE customers_id = 3
 
 -- trik, ktory sa moze zist
 -- filter nazvou
 -- ctrl + medzernik
 -- speci schema - udaje o tabulkach
--- filter nazvov stlpcov
+SELECT *
+FROM information_schema.columns
+
+-- filter nazvov vs. stlpcov urcitej tabulky (nevytvarali ste ju vy)
 SELECT column_name
 FROM information_schema.columns
 WHERE table_schema = 'public' AND table_name = 'customers'
 
-
+-- pridanie stlpcu - spustim to predtym a vidim to tam
 ALTER TABLE customers
-ADD COLUMN test_column_not_null VARCHAR(256);
+ADD COLUMN test_column VARCHAR(256);
+
+-- stlpec s constrainom - problem - nerobit na hodine
+UPDATE customers
+SET test_column_not_null VARCHAR(256) NOT NULL
+-- pridaj stlpec, on nevie co tam doplnit a doplni null
 
 UPDATE customers
 SET test_column_not_null = 'x'
 
+-- stale chcem ten constrain 
 ALTER TABLE customers
 ALTER COLUMN test_column_not_null SET NOT NULL 
 
